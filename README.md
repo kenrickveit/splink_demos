@@ -27,6 +27,8 @@ aws emr create-cluster --applications Name=Hadoop Name=Hive Name=Spark Name=Zepp
 * The notebook was changed in this repo to point to same data in S3 instead of a local filesystem so it will work in an EMR Notebook
 * The charts in the demo package aren't really compatible with AWS's Jupyter/JupyterLab with Spark. I'm not yet sure of the exact reason.  However the dataframes can easily be used common and standard Python graph packages instead of these custom graph functions
 * This limitation also applies to the section of the notebook where it saves the graph to HTML- it wasn't really written to work with a shared filesysem like HDFS or S3
+* The `setup.py` file didn't exist in the original splink_demos repo.  This was needed to make splink_demos an installable Python package
+* There is a lot of setting of Spark context settings in `utility_functions.demo_utils.get_spark`.  This doesn't really work in the EMR notebooks since the context already exists, and only some SQL values are able to be changed once the Spark context already exists.  This is why we specify the extra jar paths, the graph frames package, etc at cluster creation time.  
 
 # splink_demos
 
